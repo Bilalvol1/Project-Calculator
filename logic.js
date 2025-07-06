@@ -1,5 +1,6 @@
 function add(a, b) {
-    return a + b;
+    console.log("hello there")
+    disp.textContent = `${+a + +b}`
 }
 
 function subtract(a, b) {
@@ -7,6 +8,7 @@ function subtract(a, b) {
 }
 
 function multiply(a, b) {
+    console.log("hello there")
     return a * b;
 }
 
@@ -17,7 +19,7 @@ function divide(a, b) {
 function operate(opA, opB, operator) {
     switch (operator) {
         case '+':
-            return add(opA, opB)
+            add(opA, opB)
             break;
         case '-':
             return subtract(opA, opB)
@@ -31,24 +33,57 @@ function operate(opA, opB, operator) {
     }
 }
 
+let opA = '';
+let opB = '';
+let operator;
+let input = '';
+let result;
 
-// displays clicked digits and stores it in input variable
-function displayButtons() {
+const disp = document.querySelector('.display');
+const digits = document.querySelectorAll('.digit');
+const op = document.querySelectorAll('.operator')
+
+function display() {
     digits.forEach((digit) => {
-        digit.addEventListener('click', () => {
-            display.textContent += digit.textContent;
+        digit.addEventListener('click',() => {
+            disp.textContent += digit.textContent;
             input += digit.textContent;
-            console.log(input)
+            storeInput()
+        })
+})
+}
+
+display()
+
+function operatorClick() {
+    op.forEach((btn) => {
+        btn.addEventListener('click', () => {
+            if ( btn.textContent === '=') {
+                result = btn.textContent
+                storeInput();
+            } else {
+                operator = btn.textContent;
+            disp.textContent = '⁦';
+            storeInput()
+            }
+            
         })
     })
 }
 
-let opA;
-let opB;
-let operator;
-let input = '';
+operatorClick();
 
-const display = document.querySelector(".display");
-const digits = document.querySelectorAll(".digit");
-
-displayButtons()
+function storeInput() {
+    if ( result === '=') {
+        operate(opA, opB, operator);
+        console.log('hello there')
+        // disp.textContent = '⁦';
+    }
+    else if ( typeof operator === 'undefined') {
+        opA += input;
+        input = '';
+    } else {
+        opB += input;
+        input = '';
+    }
+}
