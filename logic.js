@@ -31,7 +31,24 @@ function operate(opA, opB, operator) {
     }
 }
 
-let opA
+
+// displays clicked digits and stores it in input variable
+function displayButtons() {
+    digits.forEach((digit) => {
+        digit.addEventListener('click', () => {
+            display.textContent += digit.textContent;
+            input += digit.textContent;
+            console.log(input)
+        })
+    })
+}
+
+let opA;
 let opB;
 let operator;
+let input = '';
 
+const display = document.querySelector(".display");
+const digits = document.querySelectorAll(".digit");
+
+displayButtons()
