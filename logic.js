@@ -1,17 +1,30 @@
 function add(a, b) {
-    disp.textContent = +a + +b;
+    console.log("hello there")
+    opA = +a + +b;
+    opB = '';
+    // operator = undefined;
+    disp.textContent = opA;
 }
 
 function subtract(a, b) {
-    disp.textContent = +a - +b;
+    opA = +a - +b;
+    opB = '';
+    // operator = undefined;
+    disp.textContent = opA
 }
 
 function multiply(a, b) {
-    disp.textContent = +a * +b;
+    opA = +a * +b;
+    opB = '';
+    // operator = undefined;
+    disp.textContent = opA;
 }
 
 function divide(a, b) {
-    disp.textContent = +a / +b;
+    opA = +a / +b;
+    opB = '';
+    // operator = undefined;
+    disp.textContent = Math.round( opA * 10) / 10;
 }
 
 function operate(opA, opB, operator) {
@@ -31,6 +44,76 @@ function operate(opA, opB, operator) {
     }
 }
 
+function digitClick() {
+    digits.forEach((digit) => {
+        digit.addEventListener('click',() => {
+            if (opA == '') {
+                disp.textContent = '⁦'; 
+            }
+            if ( digit.textContent == '0' && operator == '/' ) {
+                disp.textContent = 'ERROR'
+            }
+            else { disp.textContent += digit.textContent;
+            input += digit.textContent;
+            storeInput() }
+        })
+})
+}
+
+function operatorClick() {
+    op.forEach((btn) => {
+        btn.addEventListener('click', () => {
+            if ( btn.textContent == 'clear' ) {
+                clear();
+            } else if ( btn.textContent === '=') {
+                result = btn.textContent
+                storeInput()
+            } else {
+                if ( btn.textContent != operator) {
+                    disp.textContent = '⁦';
+                    operate(opA, opB, operator);
+                    operator = btn.textContent;
+                }
+                
+                if ( !(opB === '') ) {
+                    console.log("hello");
+                    operate(opA, opB, operator);
+                }
+            }
+            
+        })
+    })
+}
+
+function storeInput() {
+    if ( result === '=') {
+        operate(opA, opB, operator);
+        result = undefined;
+        opA = '';
+        operator = undefined;
+    } else if ( typeof operator === 'undefined') {
+        opA += input;
+        input = '';
+    } else {
+        // if (opB == '') {
+        //     disp.textContent = '⁦'; 
+        // }
+        opB += +input;
+        disp.textContent = opB;
+        input = '';
+    }
+    
+}
+
+function clear() {
+    opA = '';
+    opB = '';
+    operator = undefined;
+    input = '';
+    result = undefined;
+    disp.textContent = '⁦';     
+}
+
 let opA = '';
 let opB = '';
 let operator;
@@ -41,45 +124,7 @@ const disp = document.querySelector('.display');
 const digits = document.querySelectorAll('.digit');
 const op = document.querySelectorAll('.operator')
 
-function display() {
-    digits.forEach((digit) => {
-        digit.addEventListener('click',() => {
-            disp.textContent += digit.textContent;
-            input += digit.textContent;
-            storeInput()
-        })
-})
-}
 
-display()
-
-function operatorClick() {
-    op.forEach((btn) => {
-        btn.addEventListener('click', () => {
-            if ( btn.textContent === '=') {
-                result = btn.textContent
-                storeInput();
-            } else {
-                operator = btn.textContent;
-            disp.textContent = '⁦';
-            storeInput()
-            }
-            
-        })
-    })
-}
-
+digitClick()
 operatorClick();
 
-function storeInput() {
-    if ( result === '=') {
-        operate(opA, opB, operator);
-    }
-    else if ( typeof operator === 'undefined') {
-        opA += input;
-        input = '';
-    } else {
-        opB += input;
-        input = '';
-    }
-}
