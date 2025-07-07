@@ -1,19 +1,17 @@
 function add(a, b) {
-    console.log("hello there")
-    disp.textContent = `${+a + +b}`
+    disp.textContent = +a + +b;
 }
 
 function subtract(a, b) {
-    return a - b
+    disp.textContent = +a - +b;
 }
 
 function multiply(a, b) {
-    console.log("hello there")
-    return a * b;
+    disp.textContent = +a * +b;
 }
 
 function divide(a, b) {
-    return a / b;
+    disp.textContent = +a / +b;
 }
 
 function operate(opA, opB, operator) {
@@ -22,13 +20,13 @@ function operate(opA, opB, operator) {
             add(opA, opB)
             break;
         case '-':
-            return subtract(opA, opB)
+            subtract(opA, opB)
             break;
-        case '*':
-            return multiply(opA, opB)
+        case 'x':
+            multiply(opA, opB)
             break;
         case '/':
-            return divide(opA, opB)
+            divide(opA, opB)
             break;
     }
 }
@@ -76,8 +74,6 @@ operatorClick();
 function storeInput() {
     if ( result === '=') {
         operate(opA, opB, operator);
-        console.log('hello there')
-        // disp.textContent = '⁦';
     }
     else if ( typeof operator === 'undefined') {
         opA += input;
